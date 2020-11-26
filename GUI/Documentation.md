@@ -29,6 +29,7 @@ var event = {
 ```
 
 Implementierung der simplen grafischen Oberfläche in native CSS mithilfe von bootstrap o.ä. 
+Das React Frontend wird als Thin-Client implementiert, und sämtliche aufbereiteten Daten von der API über Websockets mithilfe des Frameworks Socket-IO beziehen
 
 Alarm Darstellung
 - Farbkodierung der Eintrittswahrscheinlichkeit, Deaktiviert -> grau
