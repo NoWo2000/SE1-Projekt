@@ -11,8 +11,8 @@ class EventSchema(db.Model):
         primary_key=True
     )
     time = db.Column(
-        db.DateTime(),
-        server_default="NOW()"
+        db.BigInteger(),
+        server_default=db.text("EXTRACT(EPOCH FROM NOW())")
     )
     affectedSystems = db.Column(
         ARRAY(db.String())
