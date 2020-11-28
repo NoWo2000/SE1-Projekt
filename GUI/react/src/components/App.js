@@ -8,7 +8,6 @@ import Chart from './Chart.js';
 import { subscribeToEvent } from '../api.js';
 import { generateRandomAlarm } from '../generateAlarm.js';
 
-
 class App extends React.Component {
 
     constructor(props) {
@@ -27,15 +26,30 @@ class App extends React.Component {
         };
 
         subscribeToEvent((err, EventData) => {
-            this.setState({ alarmArray: [...this.state.alarmArray, EventData] })
+            this.setState({ alarmArray: [...this.state.alarmArray, EventData] });
         });
 
         this.generateAlarm = this.generateAlarm.bind(this);
     }
 
+    componentDidMount() {
+        let start = (function () { try { console.log("try"); return (+ new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())); } catch (e) { console.log("catch"); return 0 } }())
+        let end = (function () { try { console.log("try"); return (+ new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 23, 59, 59)); } catch (e) { console.log("catch"); return 0 } }())
+        fetch(`http://localhost:5000/api/alerts?start=${start}&end=${end}`)
+            .then(
+                (result) => {
+                    this.setState({
+                        alarmArray: this.state.alarmArray.concat(result)
+                    });
+                },
+                (error) => {
+                    console.log(error);
+                }
+            )
+    }
+
     generateAlarm() {
         this.setState({ alarmArray: [...this.state.alarmArray, generateRandomAlarm()] });
-        this.forceUpdate();
     }
 
     render() {
