@@ -4,10 +4,12 @@ flightplans = 'flightplans'
 
 
 class FlightplansSchema(db.Model):
+    __tablename__ = 'flightplans'
+    __table_args__ = {'extend_existing': True}
     time = db.Column(
-        db.DateTime(),
+        db.BigInteger(),
         primary_key=True,
-        server_default=db.text('NOW()')
+        server_default=db.text("EXTRACT(EPOCH FROM NOW())")
     )
     callsign = db.Column(
         db.String()
