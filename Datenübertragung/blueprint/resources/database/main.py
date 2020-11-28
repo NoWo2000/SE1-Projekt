@@ -30,7 +30,7 @@ class DatabaseManager():
         db.session.commit()
         return event_obj
 
-    def query_by_date(self, lower_time, upper_time):
+    def get_events_by_date(self, lower_time, upper_time):
         return EventSchema.query.filter(
             EventSchema.time <= upper_time,
             EventSchema.time >= lower_time
@@ -51,8 +51,7 @@ if __name__ == '__main__':
     datetime_str = '2020-11-27 13:27:51'
     dt = datetime.strptime(datetime_str, '%Y-%m-%d %H:%M:%S')
     tl = dt.timestamp()
-    print(ts)
-    a = dbm.query_by_date(1606574529,ts)
+    a = dbm.get_event_by_date(tl, ts)
     print(a)
     # print(EventSchema.query.filter(id=1).first())
     
