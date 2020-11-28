@@ -2,12 +2,32 @@ from ..setup import db
 
 it = 'it'
 
-class ItSchema(db.Document):
-    time = db.DateTimeField()
-    server_cpu_usage = db.IntField()
-    server_ram_usage = db.IntField()
-    server_login_failed = db.IntField()
-    server_login_success = db.IntField()
-    traffic_upload = db.IntField()
-    traffic_download = db.IntField()
-    news = db.StringField()
+
+class ItSchema(db.Model):
+    __table_args__ = {'extend_existing': True}
+    time = db.Column(
+        db.DateTime(),
+        primary_key=True,
+        server_default=db.text('NOW()')
+    )
+    server_cpu_usage = db.Column(
+        db.Integer()
+    )
+    server_ram_usage = db.Column(
+        db.Integer()
+    )
+    server_login_failed = db.Column(
+        db.Integer()
+    )
+    server_login_success = db.Column(
+        db.Integer()
+    )
+    traffic_upload = db.Column(
+        db.Integer()
+    )
+    traffic_download = db.Column(
+        db.Integer()
+    )
+    news = db.Column(
+        db.String()
+    )

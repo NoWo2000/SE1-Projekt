@@ -34,7 +34,7 @@ def send_example_alert():
         "time": "15:15:15",
         "date": "26-11-2020",
         "affectedSystems": ["it"],
-        "suspectedAttackType": ["Bruteforce"],
+        "suspectedAttackType": "Bruteforce",
         "probability": 55,
         "automaticReaction": [],
         "checklist": ["High CPU Usage", "SSH login failed"]
