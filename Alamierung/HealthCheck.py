@@ -1,5 +1,6 @@
-from Dataset import Dataset
+from Dataset import ITDataset, FlightplanDataset
 import EvaluateAverage
+import EvaluateFlightPlan
 from Severity import calculateSeverity
     
 checkList = []
@@ -7,10 +8,13 @@ CHECKLIST_MAX = 10
 
 def main():
     #get Information from db, to fill checkList
-    data1 = Dataset(90, 90, 100, 1000, 45, 50, 1)
+    data1 = ITDataset(90, 90, 100, 1000, 45, 50, 1)
     listAppend(data1)
-    data2 = Dataset(90, 90, 100, 1000, 45, 50, 1)
+    data2 = ITDataset(90, 90, 100, 1000, 45, 50, 1)
     listAppend(data2)
+    flightplanData = FlightplanDataset("EWG8XZ", "A1411", "IS", "A320", "M", "S/S", "LFPG", 1606262400000, "N0431F370 DH632",
+                                        "EDDH", 7200000, 1606269600000, "closed", "DAAA", "FPL-EWG8XZ/A1411-IS-A320/M-S/S-LFPG0000-N0431F370 DH632-EDDH0200-REG/DAAAA")
+    EvaluateFlightPlan.eval(flightplanData)
     avgDict = EvaluateAverage.evaluateAverage(checkList)
     calculateSeverity(avgDict)
 
