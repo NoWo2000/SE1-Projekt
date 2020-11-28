@@ -1,12 +1,22 @@
-from flask import Flask, render_template
+import atexit
+from datetime import datetime
+from apscheduler.schedulers.background import BackgroundScheduler
+from flask import Flask, render_template, request, jsonify
 from flask_socketio import SocketIO
 from ..utils import loggerFile
 
 app = Flask(__name__)
-
 socketio = SocketIO(app)
 
-socketio.run(app)
+def fetch_api():
+    print('fetch...')
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=fetch_api, trigger="interval", seconds=30)
+scheduler.start()
+
+# Shutdown scheduler if the web process is stopped
+atexit.register(lambda: scheduler.shutdown(wait=True))
 
 def send_alert(data):
     """
@@ -15,10 +25,17 @@ def send_alert(data):
     socketio.emit('alert', data)
     loggerFile.debug('Sent alert to socket')
 
+@app.route('/alerts', methods=['GET'])
+def get_alerts():
+    start = request.args.get('start') or int(datetime.now().timestamp())
+    end = request.args.get('end')
+    print(start)
+    return jsonify([start, end]), 200
+
 @app.route('/', methods=['GET'])
 def index():
     """
-    Plain html site that loggs socket events to browser console
+    Plain html site that logs socket events to browser console
     ToDo: Remove before production
     """
     return render_template('./index.html')
@@ -40,3 +57,5 @@ def send_example_alert():
         "checklist": ["High CPU Usage", "SSH login failed"]
     })
     return 'data sent', 200
+
+socketio.run(app)
