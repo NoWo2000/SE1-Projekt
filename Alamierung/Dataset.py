@@ -1,3 +1,15 @@
+#from EvaluateAverage import evaluateAverage
+#from EvaluateFlightplan import evaluateFlightplan
+#from EvaluateRadar import evaluateRadar
+
+def checkDataObject(obj):
+    if len(obj) == 7:
+        evaluateAverage(obj)
+    if len(obj) == 14:
+        evaluateFlightplan(obj)
+    if len(obj) == 5:
+        evaluateRadar(obj)  
+
 class ITDataset:
 
     #Constructor

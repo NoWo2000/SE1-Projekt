@@ -1,7 +1,7 @@
 from Dataset import RadarDataset
 from Alarm import alarm
 
-def eval(radarDataset):
+def evaluateRadar(radarDataset):
     if len(radarDataset.callsign) < 4 or len(radarDataset.callsign) > 7:
         alarm(75, ['Callsign'])
     if radarDataset.alt < 0:
