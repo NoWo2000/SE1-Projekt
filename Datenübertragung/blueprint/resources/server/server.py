@@ -1,18 +1,15 @@
 import atexit
-from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
-from flask import Flask, render_template, request, jsonify
+from datetime import datetime
+from flask import Flask, render_template, request
 from flask_socketio import SocketIO
+from ..database import DatabaseManager
 from ..utils import loggerFile
 
 app = Flask(__name__, static_url_path='', static_folder='static')
 socketio = SocketIO(app)
 
-def fetch_api():
-    """
-    main app entrypoint?
-    """
-    print('fetch...')
+dbm = DatabaseManager()
 
 scheduler = BackgroundScheduler()
 scheduler.add_job(func=fetch_api, trigger="interval", seconds=30)
@@ -20,6 +17,12 @@ scheduler.start()
 
 # Shutdown scheduler if the web process is stopped
 atexit.register(lambda: scheduler.shutdown(wait=True))
+
+def fetch_api():
+    """
+    main app entrypoint?
+    """
+    print('fetch...')
 
 def send_alert(data):
     """
@@ -42,6 +45,7 @@ def get_alerts():
     """
     start = request.args.get('start') or 0
     end = request.args.get('end') or datetime.now().timestamp()
-    return jsonify([start, end]), 200
+    res = dbm.get_events_by_date(start, end)
+    return res, 200
 
 socketio.run(app)
