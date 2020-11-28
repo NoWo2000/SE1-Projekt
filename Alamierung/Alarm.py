@@ -1,12 +1,10 @@
 import json
 from datetime import datetime
 
-ID = -1
+ID = 1
 
 def checkAlarm(p, pDict):
-    global ID
     if p >= 10:
-        ID += 1
         affectedSystems = [x for x in pDict if pDict[x] >= 10]
         alarm(p, affectedSystems)
 
@@ -22,4 +20,5 @@ def alarm(probability, affectedSystems):
         "automaticReaction": "automaticReaction", #Array von Strings
         "checklist": "checklist" #Array von Strings
     }
+    ID += 1
     print(event)
