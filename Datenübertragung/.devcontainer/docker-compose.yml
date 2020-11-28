@@ -25,9 +25,22 @@ services:
   postgres:
     image: postgres
     restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: s3cr3t
+      POSTGRES_DB: SE-Projekt
     ports:
       - 5432:5432
     volumes:
       - /var/lib/postgresql/data
+  
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 4040:8080
+    links:
+      - postgres
+      
 volumes:
   datenueberwachung_data:
