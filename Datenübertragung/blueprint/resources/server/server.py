@@ -5,10 +5,13 @@ from flask import Flask, render_template, request, jsonify
 from flask_socketio import SocketIO
 from ..utils import loggerFile
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='static')
 socketio = SocketIO(app)
 
 def fetch_api():
+    """
+    main app entrypoint?
+    """
     print('fetch...')
 
 scheduler = BackgroundScheduler()
@@ -20,42 +23,25 @@ atexit.register(lambda: scheduler.shutdown(wait=True))
 
 def send_alert(data):
     """
-    entrypoint to notify frontend about alters
+    entrypoint to notify frontend about alerts
     """
     socketio.emit('alert', data)
     loggerFile.debug('Sent alert to socket')
 
-@app.route('/alerts', methods=['GET'])
-def get_alerts():
-    start = request.args.get('start') or int(datetime.now().timestamp())
-    end = request.args.get('end')
-    print(start)
-    return jsonify([start, end]), 200
-
 @app.route('/', methods=['GET'])
 def index():
     """
-    Plain html site that logs socket events to browser console
-    ToDo: Remove before production
+    Serve static frontend
     """
     return render_template('./index.html')
 
-@app.route('/test', methods=['GET'])
-def send_example_alert():
+@app.route('/api/alerts', methods=['GET'])
+def get_alerts():
     """
-    send example dataset to websocket
-    ToDo: Remove before production
+    Get all alerts or filter by date using url parameters
     """
-    send_alert({
-        "id": 42,
-        "time": "15:15:15",
-        "date": "26-11-2020",
-        "affectedSystems": ["it"],
-        "suspectedAttackType": "Bruteforce",
-        "probability": 55,
-        "automaticReaction": [],
-        "checklist": ["High CPU Usage", "SSH login failed"]
-    })
-    return 'data sent', 200
+    start = request.args.get('start') or 0
+    end = request.args.get('end') or datetime.now().timestamp()
+    return jsonify([start, end]), 200
 
 socketio.run(app)
