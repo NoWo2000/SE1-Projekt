@@ -6,9 +6,12 @@ flightplans = 'flightplans'
 class FlightplansSchema(db.Model):
     __tablename__ = 'flightplans'
     __table_args__ = {'extend_existing': True}
+    id = db.Column(
+        db.Integer(),
+        primary_key=True
+    )
     time = db.Column(
         db.BigInteger(),
-        primary_key=True,
         server_default=db.text("EXTRACT(EPOCH FROM NOW())")
     )
     callsign = db.Column(
@@ -33,7 +36,7 @@ class FlightplansSchema(db.Model):
         db.String()
     )
     eobt = db.Column(
-        db.DateTime()  # maybe exchange into Integer
+        db.BigInteger()
     )
     route = db.Column(
         db.String()
@@ -45,7 +48,7 @@ class FlightplansSchema(db.Model):
         db.Integer()
     )
     eta = db.Column(
-        db.DateTime()
+        db.BigInteger()
     )
     status = db.Column(
         db.String()

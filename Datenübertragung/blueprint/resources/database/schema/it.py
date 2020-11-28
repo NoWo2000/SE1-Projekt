@@ -7,9 +7,9 @@ class ItSchema(db.Model):
     __tablename__ = 'it'
     __table_args__ = {'extend_existing': True}
     time = db.Column(
-        db.DateTime(),
+        db.BigInteger(),
         primary_key=True,
-        server_default=db.text('NOW()')
+        server_default=db.text("EXTRACT(EPOCH FROM NOW())")
     )
     server_cpu_usage = db.Column(
         db.Integer()
