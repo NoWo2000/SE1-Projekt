@@ -1,3 +1,4 @@
+from datetime import datetime
 from .setup import db
 from .schema.it import ItSchema, it
 from .schema.event import EventSchema, event
@@ -18,12 +19,7 @@ class DatabaseManager():
         if documentType == event:
             return self._write_event(data)
 
-    def _write_it(self, data):
-        itdict = {}
-        for elem in data:
-            key = elem['name'].replace('-', '_')
-            itdict[key] = elem['value']
-        it_obj = ItSchema(**itdict)
+    def _write_it(self, it_obj):
         db.session.add(it_obj)
         db.session.commit()
         return it_obj
@@ -32,18 +28,33 @@ class DatabaseManager():
         event_obj = EventSchema(**event)
         db.session.add(event_obj)
         db.session.commit()
+        return event_obj
 
+    def query_by_date(self, lower_time, upper_time):
+        return EventSchema.query.filter(
+            EventSchema.time <= upper_time,
+            EventSchema.time >= lower_time
+            ).all()
 # debug DatabaseManager-class
 if __name__ == '__main__':
     dbm = DatabaseManager()
-    dbm.write("event", {
+    ev = dbm.write("event", {
         "affectedSystems": ["it"],
         "suspectedAttackType": "Bruteforce",
         "probability": 55,
         "automaticReaction": [],
         "checklist": ["High CPU Usage", "SSH login failed"]
     })
-    print(EventSchema.query.filter_by(id=1).first())
+    datetime_str = '2020-11-28 15:57:51'
+    dt = datetime.strptime(datetime_str, '%Y-%m-%d %H:%M:%S')
+    ts = dt.timestamp()
+    datetime_str = '2020-11-27 13:27:51'
+    dt = datetime.strptime(datetime_str, '%Y-%m-%d %H:%M:%S')
+    tl = dt.timestamp()
+    print(ts)
+    a = dbm.query_by_date(1606574529,ts)
+    print(a)
+    # print(EventSchema.query.filter(id=1).first())
     
     # print('*'*10 + ' Debug: DatabaseManager ' + '*'*10 )
 

@@ -4,6 +4,7 @@ it = 'it'
 
 
 class ItSchema(db.Model):
+    __tablename__ = 'it'
     __table_args__ = {'extend_existing': True}
     time = db.Column(
         db.DateTime(),
