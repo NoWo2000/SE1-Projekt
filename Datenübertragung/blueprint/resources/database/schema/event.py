@@ -1,6 +1,6 @@
-from ..setup import db
 from sqlalchemy.dialects.postgresql import ARRAY
-event = "event"
+from ..setup import db
+EVENT = "event"
 
 
 class EventSchema(db.Model):

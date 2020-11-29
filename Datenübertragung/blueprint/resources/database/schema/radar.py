@@ -1,7 +1,6 @@
 from ..setup import db
 
-radar = 'radar'
-
+RADAR = 'radar'
 
 class RadarSchema(db.Model):
     __tablename__ = 'radar'

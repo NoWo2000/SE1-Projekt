@@ -1,7 +1,6 @@
 from ..setup import db
 
-terminal = 'terminal'
-
+TERMINAL = 'terminal'
 
 class TerminalSchema(db.Model):
     __tablename__ = 'terminal'

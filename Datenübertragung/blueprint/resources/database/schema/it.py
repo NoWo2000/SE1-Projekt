@@ -1,7 +1,6 @@
 from ..setup import db
 
-it = 'it'
-
+IT = 'it'
 
 class ItSchema(db.Model):
     __tablename__ = 'it'

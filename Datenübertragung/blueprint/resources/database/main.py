@@ -1,11 +1,6 @@
 from datetime import datetime
+from .schema import EVENT, EventSchema
 from .setup import db
-from .schema.it import ItSchema, it
-from .schema.event import EventSchema, event
-from .schema.flightplans import FlightplansSchema, flightplans
-from .schema.radar import RadarSchema, radar
-from .schema.terminal import TerminalSchema, terminal
-from .schema.test import TestSchema
 
 
 class DatabaseManager():
@@ -14,7 +9,7 @@ class DatabaseManager():
         db.create_all()
 
     def write(self, documentType, obj):
-        if documentType == event:
+        if documentType == EVENT:
             obj = EventSchema(**obj)
         db.session.add(obj)
         db.session.commit()
@@ -31,10 +26,10 @@ class DatabaseManager():
             EventSchema.time >= lower_time
             ).all()
 
+dbm = DatabaseManager()
 
 # debug DatabaseManager-class
 if __name__ == '__main__':
-    dbm = DatabaseManager()
     dbm.write("event", {
         "affectedSystems": ["it"],
         "suspectedAttackType": "Bruteforce",

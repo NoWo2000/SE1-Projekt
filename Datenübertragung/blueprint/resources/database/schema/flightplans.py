@@ -1,7 +1,6 @@
 from ..setup import db
 
-flightplans = 'flightplans'
-
+FLIGHTPLANS = 'flightplans'
 
 class FlightplansSchema(db.Model):
     __tablename__ = 'flightplans'
