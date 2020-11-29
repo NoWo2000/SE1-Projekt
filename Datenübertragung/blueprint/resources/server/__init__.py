@@ -1,1 +1,1 @@
-from .server import app
+from .setup import app, socketio
