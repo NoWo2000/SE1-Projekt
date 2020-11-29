@@ -1,18 +1,18 @@
 from ..utils import Endpoints, ApiRequest
-from ..database import DatabaseManager, TerminalSchema, terminal
+from ..database import dbm, TerminalSchema, TERMINAL
 
 
 class TerminalFetch():
     def __init__(self):
         self.api = ApiRequest()
-        self.db = DatabaseManager()
+        self.db = dbm
 
     def prepareAndSave(self, data):
         terminal_obj_list = []
         for terminalData in data:
             terminal_obj = TerminalSchema(**terminalData)
             terminal_obj_list += [terminal_obj, ]
-            self.db.write(terminal, terminal_obj)
+            self.db.write(TERMINAL, terminal_obj)
 
     def fetch(self):
         data = self.api.get(Endpoints.TERMINAL)

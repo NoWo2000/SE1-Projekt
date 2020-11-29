@@ -1,23 +1,22 @@
 from ..utils import Endpoints, ApiRequest
-from ..database import DatabaseManager, RadarSchema, radar
+from ..database import dbm, RadarSchema, RADAR
 
 
 class RadarFetch():
     def __init__(self):
         self.api = ApiRequest()
-        self.db = DatabaseManager()
+        self.db = dbm
 
     def prepareAndSave(self, data):
         radar_obj_list = []
         for radarData in data:
             radar_obj = RadarSchema(**radarData)
             radar_obj_list += [radar_obj, ]
-            self.db.write(radar, radar_obj)
+            self.db.write(RADAR, radar_obj)
 
     def fetch(self):
         data = self.api.get(Endpoints.RADAR)
         self.prepareAndSave(data)
-
 
 if __name__ == '__main__':
     radarData = [

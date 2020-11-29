@@ -1,18 +1,18 @@
 from ..utils import Endpoints, ApiRequest
-from ..database import DatabaseManager, FlightplansSchema, flightplans
+from ..database import dbm, FlightplansSchema, FLIGHTPLANS
 
 
 class FlightplansFetch():
     def __init__(self):
         self.api = ApiRequest()
-        self.db = DatabaseManager()
+        self.db = dbm
 
     def prepareAndSave(self, data):
         flightplans_obj_list = []
         for flightplansData in data:
             flightplans_obj = FlightplansSchema(**flightplansData)
             flightplans_obj_list += [flightplans_obj, ]
-            self.db.write(flightplans, flightplans_obj)
+            self.db.write(FLIGHTPLANS, flightplans_obj)
 
     def fetch(self):
         data = self.api.get(Endpoints.FLIGHTPLANS)
