@@ -1,8 +1,7 @@
 [DEFAULT]
 
-[LOGGER]
-file = log.txt
-level = 1
+[WATCHTOWER]
+interval = 30
 
 [DATA-API]
 protocol = http
@@ -17,3 +16,10 @@ port = 5432
 database_name = SE-Projekt
 user = postgres
 password = s3cr3t
+
+[WEBSERVER]
+port = 5000
+
+[LOGGER]
+file = log.txt
+level = 1
