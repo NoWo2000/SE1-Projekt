@@ -44,7 +44,7 @@ class Alarm():
     def automaticReaction(self):
         reactions = ["Shut Down", "Do Nothing", "Ring Alarm", "Call Police", "Call 112", "Sit back and relax", "Inform your Supervisor"]
         automaticReactions = []
-        listlength = randit(2, 5)
+        listlength = randint(2, 5)
         while True:
             random = randint(0, len(reactions) - 1)
             if reactions[random] not in automaticReactions:
