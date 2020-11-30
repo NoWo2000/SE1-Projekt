@@ -1,11 +1,17 @@
+from .Alarm import alarm
 from ..utils import Endpoints, ApiRequest
 from ..database import dbm, RadarSchema, RADAR
 
-
-class RadarFetch():
+class RadarTower():
     def __init__(self):
         self.api = ApiRequest()
         self.db = dbm
+
+    def run(self):
+        data = self.fetch()
+        radar_obj_list = self.prepareAndSave(data)
+        for radar_obj in radar_obj_list:
+            self.evaluate(radar_obj)
 
     def prepareAndSave(self, data):
         radar_obj_list = []
@@ -13,10 +19,21 @@ class RadarFetch():
             radar_obj = RadarSchema(**radarData)
             radar_obj_list += [radar_obj, ]
             self.db.write(RADAR, radar_obj)
+        return radar_obj_list
 
     def fetch(self):
         data = self.api.get(Endpoints.RADAR)
-        self.prepareAndSave(data)
+        return data
+
+    def evaluate(self, radarDataset):
+        if len(radarDataset.callsign) < 4 or len(radarDataset.callsign) > 7:
+            alarm(75, ['Callsign'])
+        if radarDataset.alt < 0:
+            alarm(75, ['Altidude'])
+        if radarDataset.lat < -180 or radarDataset.lat > 180:
+            alarm(75, ['Latidude'])
+        if radarDataset.lon < -90 or radarDataset.lon > 90:
+            alarm(75, ['Longitude'])
 
 if __name__ == '__main__':
     radarData = [
