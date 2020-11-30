@@ -34,7 +34,7 @@ class App extends React.Component {
     componentDidMount() {
         let start = (function () { try { console.log("try"); return (+ new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())); } catch (e) { console.log("catch"); return 0 } }())
         let end = (function () { try { console.log("try"); return (+ new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 23, 59, 59)); } catch (e) { console.log("catch"); return 0 } }())
-        fetch(`http://localhost:5000/api/alerts?start=${start}&end=${end}`)
+        fetch(`/api/alerts?start=${start}&end=${end}`)
             .then(
                 (result) => {
                     this.setState({
