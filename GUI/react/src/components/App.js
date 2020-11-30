@@ -21,8 +21,7 @@ class App extends React.Component {
                 probability: 0,
                 automaticReaction: [],
                 checklist: []
-            }
-            ]
+            }]
         };
 
         subscribeToEvent((err, EventData) => {
@@ -65,7 +64,11 @@ class App extends React.Component {
                     <Col md={6}>
                         <Accordion defaultActiveKey={this.state.alarmArray[0]}>
                             {this.state.alarmArray.map(alarm => {
-                                return <Alarm data={alarm}></Alarm>
+                                if (alarm.probability >= 75) {
+                                    return <Alarm data={alarm}></Alarm>
+                                } else {
+                                    return ""
+                                }
                             })}
                         </Accordion>
                     </Col>
