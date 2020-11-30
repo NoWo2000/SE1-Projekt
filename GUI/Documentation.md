@@ -18,8 +18,7 @@ Das erwartete JSON:
 ```
 var event = {
         "id": id,                                   // Zahl (Auto-Inkrement)
-        "time": time,                               // String
-        "date": date,                               // String
+        "date": date,                               // Number (Timestamp)
         "affectedSystems": affectedSystems,         // Array von Strings
         "suspectedAttackType": suspectedAttackType, // String
         "probability": probability,                 // Zahl (10-100) (Zusendung von jedem Event ab 10% Probability)
@@ -28,7 +27,10 @@ var event = {
     };
 ```
 
-Implementierung der simplen grafischen Oberfläche in native CSS mithilfe von bootstrap o.ä. 
+Implementierung der simplen grafischen Oberfläche in react mithilfe von bootstrap o.ä. 
+Beim Neuladen der Website, werden die Alarme des Tages von der API abgefragt. 
+
+Das React Frontend wird als Thin-Client implementiert, und sämtliche aufbereiteten Echtzeit-Daten (Alarme) von der API über Websockets mithilfe des Frameworks Socket-IO beziehen.
 
 Alarm Darstellung
 - Farbkodierung der Eintrittswahrscheinlichkeit, Deaktiviert -> grau
