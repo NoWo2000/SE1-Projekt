@@ -16,9 +16,9 @@ class Alarm():
         "automaticReaction": self.automaticReaction(), #Array von Strings
         "checklist": self.checkList() #Array von Strings
         }
-        dbm.write(EVENT, event)
+        db_event = dbm.write(EVENT, event)
+        event["id"] = db_event.id
         send_alert(event)
-        print(event)
 
     def checkList(self):
         todos = ["Contact Manager", "Reboot System", "Drink Coffee", 

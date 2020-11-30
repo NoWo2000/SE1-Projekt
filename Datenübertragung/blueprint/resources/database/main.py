@@ -13,6 +13,7 @@ class DatabaseManager():
             obj = EventSchema(**obj)
         db.session.add(obj)
         db.session.commit()
+        return obj
 
     def update(self, documentType, obj, new_obj):
         db.session.delete(obj)
