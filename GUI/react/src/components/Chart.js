@@ -6,7 +6,6 @@ class Chart extends React.Component {
     render() {
         var datapoints = [];
         this.props.data.forEach(alarm => {
-            console.log("alarmearry in canvas", alarm);
             datapoints.push({
                 x: alarm.time,
                 y: alarm.probability,
@@ -18,8 +17,6 @@ class Chart extends React.Component {
                     let minutes = date.getMinutes();
                     let seconds = date.getSeconds();
                     let time = (hours < 10 ? "0" + hours.toString() : hours.toString()) + ":" + (minutes < 10 ? "0" + minutes.toString() : minutes.toString()) + ":" + (seconds < 10 ? "0" + seconds.toString() : seconds.toString());
-                    console.log("time und so brudi ist alles richitg?","alarm.time",alarm.time,"date:",date, "hours:",hours,"min:", minutes, "sec::", seconds, "time:",time);
-                    console.log(time);
                     return "Alarm: #" + alarm.id.toString() + "<br/>" + time;
                 }())
             });

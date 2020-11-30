@@ -22,7 +22,7 @@ class App extends React.Component {
                 automaticReaction: [],
                 checklist: []
             }],
-            alarmArrayReversed:[]
+            alarmArrayReversed: []
         };
 
         subscribeToEvent((err, EventData) => {
@@ -33,7 +33,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        let start = (+ new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())/1000);
+        let start = (+ new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()) / 1000);
         fetch(`http://gns3.p-fruck.de/api/alerts?start=${start}`)
             .then(result => result.json())
             .then(
