@@ -1,6 +1,8 @@
 import json
 from datetime import datetime
 from random import randint
+from ..server import send_alert
+from ..database.main import dbm, EVENT
 
 
 class Alarm():
@@ -14,6 +16,8 @@ class Alarm():
         "automaticReaction": self.automaticReaction(), #Array von Strings
         "checklist": self.checkList() #Array von Strings
         }
+        dbm.write(EVENT, event)
+        send_alert(event)
         print(event)
 
     def checkList(self):
