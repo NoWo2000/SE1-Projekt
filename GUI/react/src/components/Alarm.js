@@ -56,7 +56,7 @@ class Alarm extends React.Component {
                             <h5 class="font-weight-lighter ml-2 mt-n2">Alarm #{this.state.id}</h5>
                         </Row>
                         <Row>
-                            <h3 class="ml-2 mb-n1">{this.state.suspectedAttackType}</h3>
+                            <h3 class="ml-2 mb-n1 font-weight-light">{this.state.suspectedAttackType}</h3>
                             <div class="tag ml-2 mt-1" style={{ "background-color": this.state.category[1] }}>
                                 &#8205; &#8205; {this.state.category[0]} &#8205; &#8205;
                             </div>

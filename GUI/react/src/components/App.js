@@ -57,7 +57,7 @@ class App extends React.Component {
             <Container fluid>
                 {/* Header */}
                 <Row>
-                    <h1 class="mx-auto mt-2" onClick={this.generateAlarm}>GUI - Alarm Detection Software</h1>
+                    <h1 class="mx-auto mt-2 pb-4 pt-1" onClick={this.generateAlarm}>GUI - Alarm Detection Software</h1>
                 </Row>
                 {/* Main Content */}
                 <Row>
@@ -69,7 +69,7 @@ class App extends React.Component {
                             })}
                         </Accordion>
                     </Col>
-                    <Col id="chart">
+                    <Col>
                         {/* 24h-Course */}
                         <Chart data={this.state.alarmArray}></Chart>
                     </Col>
