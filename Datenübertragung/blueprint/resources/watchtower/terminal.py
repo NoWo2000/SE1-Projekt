@@ -2,10 +2,14 @@ from ..utils import Endpoints, ApiRequest
 from ..database import dbm, TerminalSchema, TERMINAL
 
 
-class TerminalFetch():
+class TerminalTower():
     def __init__(self):
         self.api = ApiRequest()
         self.db = dbm
+    
+    def run(self):
+        data = self.fetch()
+        self.prepareAndSave(data)
 
     def prepareAndSave(self, data):
         terminal_obj_list = []
@@ -16,7 +20,7 @@ class TerminalFetch():
 
     def fetch(self):
         data = self.api.get(Endpoints.TERMINAL)
-        self.prepareAndSave(data)
+        return data
 
 
 if __name__ == '__main__':
@@ -34,5 +38,5 @@ if __name__ == '__main__':
             "message": "Mr.Losem please go to your flight."
         }
     ]
-    rf = TerminalFetch()
+    rf = TerminalTower()
     rf.prepareAndSave(terminalData)
