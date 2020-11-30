@@ -17,7 +17,7 @@ function generateRandomAlarm() {
 
     return {
         id: Math.floor(Math.random() * 1000000),
-        date: + new Date(),
+        time: ( + new Date() ),
         affectedSystems: [shuffle(affectedSystemsArray).splice(affectedSystemsArray.length - (1 + Math.floor(Math.random() * 2)))],
         suspectedAttackType: suspectedAttackTypeArray[Math.floor(Math.random() * suspectedAttackTypeArray.length)],
         probability: randomProbability,

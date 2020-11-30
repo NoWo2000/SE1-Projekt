@@ -13,8 +13,8 @@ class Alarm extends React.Component {
 
         this.state = {
             id: props.data.id,
-            time: props.data.id === "ID" ? "hh.mm.ss" : this.calculateDate(props.data.date)[1],
-            date: props.data.id === "ID" ? "dd.mm.yyyy" : this.calculateDate(props.data.date)[0],
+            time: props.data.id === "ID" ? "hh.mm.ss" : this.calculateDate(props.data.time)[1],
+            date: props.data.id === "ID" ? "dd.mm.yyyy" : this.calculateDate(props.data.time)[0],
             affectedSystems: props.data.affectedSystems,
             suspectedAttackType: props.data.suspectedAttackType,
             probability: props.data.probability,

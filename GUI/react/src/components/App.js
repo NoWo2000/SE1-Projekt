@@ -15,13 +15,14 @@ class App extends React.Component {
         this.state = {
             alarmArray: [{
                 id: "ID",
-                date: "date and time",
+                time: "date and time",
                 affectedSystems: [],
                 suspectedAttackType: "Suspected Attack Type",
                 probability: 0,
                 automaticReaction: [],
                 checklist: []
-            }]
+            }],
+            alarmArrayReversed:[]
         };
 
         subscribeToEvent((err, EventData) => {
@@ -32,11 +33,14 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        let start = (function () { try { console.log("try"); return (+ new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())); } catch (e) { console.log("catch"); return 0 } }())
-        let end = (function () { try { console.log("try"); return (+ new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 23, 59, 59)); } catch (e) { console.log("catch"); return 0 } }())
-        fetch(`/api/alerts?start=${start}&end=${end}`)
+        let start = (+ new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())/1000);
+        fetch(`http://gns3.p-fruck.de/api/alerts?start=${start}`)
+            .then(result => result.json())
             .then(
                 (result) => {
+                    result.map(alarm => {
+                        alarm.time = alarm.time * 1000;
+                    })
                     this.setState({
                         alarmArray: this.state.alarmArray.concat(result)
                     });
@@ -48,7 +52,8 @@ class App extends React.Component {
     }
 
     generateAlarm() {
-        this.setState({ alarmArray: [...this.state.alarmArray, generateRandomAlarm()] });
+        let a = [...this.state.alarmArray, generateRandomAlarm()]
+        this.setState({ alarmArray: a });
     }
 
     render() {
