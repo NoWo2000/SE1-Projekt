@@ -53,7 +53,7 @@ class FlightplansSchema(db.Model):
         db.String()
     )
     icao4444 = db.Column(
-        db.String()
+        db.String(),
         primary_key=True
     )
 
