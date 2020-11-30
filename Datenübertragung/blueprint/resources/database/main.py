@@ -1,5 +1,5 @@
 from datetime import datetime
-from .schema import EVENT, EventSchema
+from .schema import EVENT, EventSchema, ItSchema
 from .setup import db
 
 
@@ -26,6 +26,9 @@ class DatabaseManager():
             EventSchema.time >= lower_time
             ).all()
 
+    def get_last_it(self, entry_limit):
+        return db.session.query(ItSchema).order_by(ItSchema.time.desc()).limit(entry_limit)
+
 dbm = DatabaseManager()
 
 # debug DatabaseManager-class
@@ -45,6 +48,7 @@ if __name__ == '__main__':
     tl = dt.timestamp()
     a = dbm.get_events_by_date(tl, ts)
     print(a)
+    dbm.get_last_it(10)
     # print(EventSchema.query.filter(id=1).first())
 
     # print('*'*10 + ' Debug: DatabaseManager ' + '*'*10 )
