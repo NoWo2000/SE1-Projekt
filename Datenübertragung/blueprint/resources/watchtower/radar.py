@@ -59,5 +59,5 @@ if __name__ == '__main__':
             "alt": 2501
         },
     ]
-    rf = RadarFetch()
+    rf = RadarTower()
     rf.prepareAndSave(radarData)

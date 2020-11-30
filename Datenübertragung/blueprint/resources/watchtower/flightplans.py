@@ -2,6 +2,7 @@ from .Alarm import alarm
 from ..utils import Endpoints, ApiRequest
 from ..database import dbm, FlightplansSchema, FLIGHTPLANS
 
+
 class FlightplansTower():
     def __init__(self):
         self.api = ApiRequest()
@@ -15,17 +16,25 @@ class FlightplansTower():
 
     def prepareAndSave(self, data):
         result = []
-        flightplans_obj_list = []
         for flightplansData in data:
-            flightplans_obj = FlightplansSchema(**flightplansData)
-            flightplans_obj_list += [flightplans_obj, ]
-            self.db.write(FLIGHTPLANS, flightplans_obj)
-        return flightplans_obj_list
+            fl = FlightplansSchema.query.filter(
+                FlightplansSchema.icao4444 == flightplansData["icao4444"]
+            ).first()
+
+            if fl is not None and fl.as_dict() != flightplansData:
+                flightplans_obj = FlightplansSchema(**flightplansData)
+                result.append(flightplans_obj)
+                self.db.update(FLIGHTPLANS, fl, flightplans_obj)
+            else:
+                flightplans_obj = FlightplansSchema(**flightplansData)
+                result.append(flightplans_obj)
+                self.db.write(FLIGHTPLANS, flightplans_obj)
+
+        return result
 
     def fetch(self):
         data = self.api.get(Endpoints.FLIGHTPLANS)
         return data
-
 
     def evaluate(self, flightplanData):
         time = flightplanData.eta - flightplanData.eet
@@ -85,5 +94,5 @@ if __name__ == '__main__':
                         EDDH0200-REG/DAAAB"""
         }
     ]
-    rf = FlightplansFetch()
+    rf = FlightplansTower()
     rf.prepareAndSave(flightplansData)

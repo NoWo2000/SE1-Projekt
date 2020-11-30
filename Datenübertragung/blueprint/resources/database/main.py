@@ -14,11 +14,10 @@ class DatabaseManager():
         db.session.add(obj)
         db.session.commit()
 
-    def _write_event(self, event_json):
-        event_obj = EventSchema(**event_json)
-        db.session.add(event_obj)
+    def update(self, documentType, obj, new_obj):
+        db.session.delete(obj)
         db.session.commit()
-        return event_obj
+        self.write(documentType, new_obj)
 
     def get_events_by_date(self, lower_time, upper_time):
         return EventSchema.query.filter(

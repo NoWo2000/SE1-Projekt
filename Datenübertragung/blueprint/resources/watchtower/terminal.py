@@ -34,5 +34,5 @@ if __name__ == '__main__':
             "message": "Mr.Losem please go to your flight."
         }
     ]
-    rf = TerminalFetch()
+    rf = TerminalTower()
     rf.prepareAndSave(terminalData)
