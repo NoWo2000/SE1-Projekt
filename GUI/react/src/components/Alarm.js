@@ -1,7 +1,6 @@
 import React from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col';
@@ -14,8 +13,8 @@ class Alarm extends React.Component {
 
         this.state = {
             id: props.data.id,
-            time: props.data.id == "ID" ? "hh.mm.ss" : this.calculateDate(props.data.date)[1],
-            date: props.data.id == "ID" ? "dd.mm.yyyy" : this.calculateDate(props.data.date)[0],
+            time: props.data.id === "ID" ? "hh.mm.ss" : this.calculateDate(props.data.date)[1],
+            date: props.data.id === "ID" ? "dd.mm.yyyy" : this.calculateDate(props.data.date)[0],
             affectedSystems: props.data.affectedSystems,
             suspectedAttackType: props.data.suspectedAttackType,
             probability: props.data.probability,
@@ -28,7 +27,6 @@ class Alarm extends React.Component {
     calculateCatergory(probability) {
         if (probability >= 95) { return ["critical", '#E94D4D'] }
         else if (probability >= 85) { return ["major", '#FF994F'] }
-        else if (probability == 0) { return ["risk", "#909190"] }
         else { return ["minor", '#EDC535'] };
     }
 
@@ -51,12 +49,12 @@ class Alarm extends React.Component {
             <Card>
 
                 <Card.Header>
-                    <Accordion.Toggle as={Card.Header} class="p-0" eventKey={this.state.id == "ID" ? "" : this.props}>
+                    <Accordion.Toggle as={Card.Header} class="p-0" eventKey={this.state.id === "ID" ? "" : this.props}>
                         <Row>
                             <h5 class="font-weight-lighter ml-2 mt-n2">Alarm #{this.state.id}</h5>
                         </Row>
                         <Row>
-                            <h3 class="ml-2 mb-n1">{this.state.suspectedAttackType}</h3>
+                            <h3 class="ml-2 mb-n1 font-weight-light">{this.state.suspectedAttackType}</h3>
                             <div class="tag ml-2 mt-1" style={{ "background-color": this.state.category[1] }}>
                                 &#8205; &#8205; {this.state.category[0]} &#8205; &#8205;
                             </div>

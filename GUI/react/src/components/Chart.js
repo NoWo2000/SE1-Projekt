@@ -60,7 +60,7 @@ class Chart extends React.Component {
                 ]
             },
             dataPointMinWidth: 5,
-            height: 720,
+            height: 680,
             data: [{
                 type: "scatter",
                 xValueType: "dateTime",
@@ -71,7 +71,6 @@ class Chart extends React.Component {
         return (
             <div className="border">
                 <CanvasJSChart options={options} />
-                {console.log(options.axisX)}
             </div >
         );
     }

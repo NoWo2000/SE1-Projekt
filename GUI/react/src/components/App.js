@@ -21,8 +21,7 @@ class App extends React.Component {
                 probability: 0,
                 automaticReaction: [],
                 checklist: []
-            }
-            ]
+            }]
         };
 
         subscribeToEvent((err, EventData) => {
@@ -57,7 +56,7 @@ class App extends React.Component {
             <Container fluid>
                 {/* Header */}
                 <Row>
-                    <h1 class="mx-auto mt-2" onClick={this.generateAlarm}>GUI - Alarm Detection Software</h1>
+                    <h1 class="mx-auto mt-2 pb-4 pt-1" onClick={this.generateAlarm}>GUI - Alarm Detection Software</h1>
                 </Row>
                 {/* Main Content */}
                 <Row>
@@ -65,11 +64,15 @@ class App extends React.Component {
                     <Col md={6}>
                         <Accordion defaultActiveKey={this.state.alarmArray[0]}>
                             {this.state.alarmArray.map(alarm => {
-                                return <Alarm data={alarm}></Alarm>
+                                if (alarm.probability >= 75) {
+                                    return <Alarm data={alarm}></Alarm>
+                                } else {
+                                    return ""
+                                }
                             })}
                         </Accordion>
                     </Col>
-                    <Col id="chart">
+                    <Col>
                         {/* 24h-Course */}
                         <Chart data={this.state.alarmArray}></Chart>
                     </Col>
