@@ -1,4 +1,4 @@
-from .Alarm import alarm
+from .Alarm import Alarm
 from ..utils import Endpoints, ApiRequest
 from ..database import dbm, RadarSchema, RADAR
 
@@ -27,13 +27,13 @@ class RadarTower():
 
     def evaluate(self, radarDataset):
         if len(radarDataset.callsign) < 4 or len(radarDataset.callsign) > 7:
-            alarm(75, ['Callsign'])
+            Alarm(75, ['Callsign'])
         if radarDataset.alt < 0:
-            alarm(75, ['Altidude'])
+            Alarm(75, ['Altidude'])
         if radarDataset.lat < -180 or radarDataset.lat > 180:
-            alarm(75, ['Latidude'])
+            Alarm(75, ['Latidude'])
         if radarDataset.lon < -90 or radarDataset.lon > 90:
-            alarm(75, ['Longitude'])
+            Alarm(75, ['Longitude'])
 
 if __name__ == '__main__':
     radarData = [

@@ -1,22 +1,27 @@
-from .resources.fetch import FlightplansFetch, ItFetch, RadarFetch, TerminalFetch
-from .resources.utils import loggerFile
+from .flightplans import FlightplansTower
+from .it import ItTower
+from .radar import RadarTower
+from .terminal import TerminalTower
+from ..utils import loggerFile
 
 class WatchTower():
 
     def __init__(self):
-        self.flightplansFetch = FlightplansFetch()
-        self.itFetch = ItFetch()
-        self.radarFetch = RadarFetch()
-        self.terminalFetch = TerminalFetch()
+        self.flightplansFetch = FlightplansTower()
+        self.itFetch = ItTower()
+        self.radarFetch = RadarTower()
+        self.terminalFetch = TerminalTower()
 
         loggerFile.log("WatchTower has been initalized!")
 
     def watch(self):
         loggerFile.log("Run WatchTower.watch ...")
-        self.flightplansFetch.fetch()
-        self.itFetch.fetch()
-        self.radarFetch.fetch()
-        self.terminalFetch.fetch()
+        self.flightplansFetch.run()
+        #self.itFetch.run()
+        self.radarFetch.run()
+        self.terminalFetch.run()
+
+        loggerFile.log("... finished WatchTower.watch!")
 
 
         

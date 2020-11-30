@@ -1,4 +1,5 @@
-import .Severity
+from .Severity import *
+from .Alarm import Alarm
 from ..utils import Endpoints, ApiRequest
 from ..database import dbm, ItSchema, IT
 
@@ -8,7 +9,10 @@ class ItTower():
         self.db = dbm
 
     def run(self):
-        
+        data = self.fetch()
+        self.prepareAndSave(data)
+        avgDict = self.evaluateAverage()
+        self.calculate(avgDict)
 
     def prepareAndSave(self, data):
         itdict = {}
@@ -20,10 +24,15 @@ class ItTower():
 
     def fetch(self):
         data = self.api.get(Endpoints.IT)
-        self.prepareAndSave(data)
-        # TODO: self.db.get(IT, limit=10)
+        return data
 
-    def evaluateAverage(checkList):
+    def evaluateAverage(self):
+        """
+        evalutes the average of the last 10 datasets
+        returns dictionary
+        """
+
+        #checklist = self.db.get(IT, limit=10)
         average = {
             "cpuUsage": 0,
             "ramUsage": 0,
@@ -41,7 +50,7 @@ class ItTower():
 
         return average
 
-    def calculate(avgDict):
+    def calculate(self, avgDict):
         avgDict = {
            "cpuUsage": _calc_cpu(avgDict["cpuUsage"]),
            "ramUsage": _calc_ram(avgDict["ramUsage"]),
@@ -56,6 +65,7 @@ class ItTower():
 
         if severity >= 100:
            severity = 99
-        
-        checkAlarm(severity, avgDict)
-        return severity
+
+        if severity >= 10:
+            affectedSystems = [x for x in avgDict if avgDict[x] >= 10]
+            Alarm(severity, affectedSystems)
