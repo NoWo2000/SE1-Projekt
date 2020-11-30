@@ -43,8 +43,12 @@ class ItTower():
         }
         
         for dataset in checkList:
-            for var in dir(dataset):
-                average[var] += eval("dataset."+var)
+            average["cpuUsage"] += dataset.server_cpu_usage
+            average["ramUsage"] += dataset.server_ram_usage
+            average["serverLoginFailed"] += dataset.server_login_failed
+            average["serverLoginSuccess"] += dataset.server_login_success
+            average["trafficUpload"] += dataset.traffic_upload
+            average["trafficDownload"] += dataset.traffic_download
         for key in average:
             average[key] /= len(checkList)
 
