@@ -1,22 +1,47 @@
+from .Alarm import alarm
 from ..utils import Endpoints, ApiRequest
 from ..database import dbm, FlightplansSchema, FLIGHTPLANS
 
-
-class FlightplansFetch():
+class FlightplansTower():
     def __init__(self):
         self.api = ApiRequest()
         self.db = dbm
 
+    def run(self):
+        data = self.fetch()
+        flightplans_obj_list = self.prepareAndSave(data)
+        for flightplan in flightplans_obj_list:
+            self.evaluate(flightplan)
+
     def prepareAndSave(self, data):
+        result = []
         flightplans_obj_list = []
         for flightplansData in data:
             flightplans_obj = FlightplansSchema(**flightplansData)
             flightplans_obj_list += [flightplans_obj, ]
             self.db.write(FLIGHTPLANS, flightplans_obj)
+        return flightplans_obj_list
 
     def fetch(self):
         data = self.api.get(Endpoints.FLIGHTPLANS)
-        self.prepareAndSave(data)
+        return data
+
+
+    def evaluate(self, flightplanData):
+        time = flightplanData.eta - flightplanData.eet
+        if flightplanData.eobt != time:
+            alarm(75, ["eta", "eet", "eobt"])
+        if flightplanData.status not in ['closed', 'scheduled', 'departed', 'initiated']:
+            alarm(75, ['Status'])
+        if len(flightplanData.registration) != 4:
+            alarm(75, ['Registration'])
+        if len(flightplanData.destination) != 4:
+            alarm(75, ['Destination'])
+        if len(flightplanData.origin) != 4:
+            alarm(75, ['Origin'])
+        if len(flightplanData.callsign) < 4 or len(flightplanData.callsign) > 7:
+            alarm(75, ['Callsign']) 
+
 
 
 if __name__ == '__main__':

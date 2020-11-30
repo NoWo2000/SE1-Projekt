@@ -1,5 +1,6 @@
 from .resources.fetch import FlightplansFetch, ItFetch, RadarFetch, TerminalFetch
 from .resources.utils import loggerFile
+
 class WatchTower():
 
     def __init__(self):

@@ -2,7 +2,7 @@ import atexit
 from apscheduler.schedulers.background import BackgroundScheduler
 
 import blueprint.resources.utils.api as Api
-from blueprint.watchtower import WatchTower
+from blueprint.resources.watchtower import WatchTower
 from blueprint.resources.utils import loggerFile, config
 from blueprint.resources.server.main import app, socketio
 
