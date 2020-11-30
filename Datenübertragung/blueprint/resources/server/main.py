@@ -25,5 +25,8 @@ def get_alerts():
     """
     start = request.args.get('start') or 0
     end = request.args.get('end') or datetime.now().timestamp()
-    res = dbm.get_events_by_date(start, end)
+    events = dbm.get_events_by_date(start, end)
+    res = []
+    for ev in events:
+        res.append(ev.as_dict())
     return jsonify(res), 200

@@ -6,6 +6,7 @@ EVENT = "event"
 class EventSchema(db.Model):
     __tablename__ = 'event'
     __table_args__ = {'extend_existing': True}
+
     id = db.Column(
         db.Integer(),
         primary_key=True
@@ -29,3 +30,9 @@ class EventSchema(db.Model):
     checklist = db.Column(
         ARRAY(db.String())
     )
+
+    def as_dict(self):
+        """
+        convert schema to dict for better rest api handling
+        """
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
