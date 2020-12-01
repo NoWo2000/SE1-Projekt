@@ -53,7 +53,7 @@ class Alarm extends React.Component {
                     <Card.Body style={{ "border-color": "red" }}>
                         <Row>
                             <Col>
-                                <Row><h6 class="ml-2 mt-n2">Propability</h6></Row>
+                                <Row><h6 class="ml-2 mt-n2">Probability</h6></Row>
                                 <Row><h2 class="ml-2 mt-n2 font-weight-lighter">{this.props.data.probability}%</h2></Row>
                                 <Row><h6 class="ml-2">Affected Systems</h6></Row>
                                 <Row><h2 class="ml-2 mt-n2 font-weight-lighter">{this.props.data.affectedSystems.join(', ')}</h2></Row>
