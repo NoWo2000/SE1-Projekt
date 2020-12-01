@@ -23,7 +23,7 @@ class Alarm():
     def checkList(self):
         todos = ["Contact Manager", "Reboot System", "Drink Coffee", 
                  "Reboot Firewall", "Clear Cache", "Update System", 
-                 "Notify Passangers", "Alt+F4", "Check Processes",
+                 "Notify Passengers", "Alt+F4", "Check Processes",
                  "Check IT-Desk", "Check Flightplan", "Check Radar"
                 ]
     
@@ -38,7 +38,7 @@ class Alarm():
                 return checklist
     
     def attacksType(self):
-        attacks = ["Brute Force", "Privilege Escalations", "SQL-Injection", "DDoS"]
+        attacks = ["Brute Force", "Privilege Escalation", "SQL-Injection", "DDoS"]
         return attacks[randint(0, len(attacks) - 1)]
     
     def automaticReaction(self):
