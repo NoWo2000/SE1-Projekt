@@ -26,6 +26,7 @@ class App extends React.Component {
         };
 
         subscribeToEvent((err, EventData) => {
+            EventData.time = EventData.time * 1000;
             this.setState({ alarmArray: [...this.state.alarmArray, EventData] });
         });
 
@@ -34,7 +35,7 @@ class App extends React.Component {
 
     componentDidMount() {
         let start = (+ new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()) / 1000);
-        fetch(`http://gns3.p-fruck.de/api/alerts?start=${start}`)
+        fetch(`/api/alerts?start=${start}`)
             .then(result => result.json())
             .then(
                 (result) => {

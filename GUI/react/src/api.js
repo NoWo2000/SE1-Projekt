@@ -1,9 +1,12 @@
-import openSocket from 'socket.io-client';
+import io from 'socket.io-client';
 
-const socket = openSocket('/socket.io');
+const socket = io();
 
 function subscribeToEvent(cb) {
-    socket.on('event', EventData => cb(null, EventData));
+    socket.on('event', EventData => {
+        console.log(EventData);
+        cb(null, EventData);
+    });
 };
 
 export { subscribeToEvent };
