@@ -8,8 +8,14 @@ def send_alert(data):
     """
     entrypoint to notify frontend about alerts
     """
-    socketio.emit('alert', data)
+    socketio.emit('event', data)
     loggerFile.debug('Sent alert to socket')
+
+@app.route('/send', methods=['GET'])
+def send():
+    print("TEST")
+    send_alert({"affectedSystems":["Status"],"automaticReaction":["Do Nothing","Inform your Supervisor"],"checklist":["Update System"],"id":822,"probability":75,"suspectedAttackType":"BruteForce222","time":1606825326})
+    return "ok", 200
 
 @app.route('/', methods=['GET'])
 def index():

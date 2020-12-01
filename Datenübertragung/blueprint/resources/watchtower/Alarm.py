@@ -9,7 +9,7 @@ class Alarm():
 
     def __init__(self, probability, affectedSystems):
         event = {
-        "time": datetime.now().timestamp(), #String
+        "time": int(datetime.now().timestamp()), #String
         "affectedSystems": affectedSystems, #Array von Strings
         "suspectedAttackType": self.attacksType(), #String
         "probability": probability, #Zahl (10-100) (Zusendung von jedem Event ab 10% Probability)
@@ -48,6 +48,6 @@ class Alarm():
         while True:
             random = randint(0, len(reactions) - 1)
             if reactions[random] not in automaticReactions:
-                automaticReactions.append(todos[random])
+                automaticReactions.append(reactions[random])
             if len(automaticReactions) == listlength:
                 return automaticReactions
