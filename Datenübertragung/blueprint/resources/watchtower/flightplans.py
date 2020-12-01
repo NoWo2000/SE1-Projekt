@@ -39,17 +39,17 @@ class FlightplansTower():
     def evaluate(self, flightplanData):
         time = flightplanData.eta - flightplanData.eet
         if flightplanData.eobt != time:
-            Alarm(75, ["eta", "eet", "eobt"])
+            Alarm(75, ["Flightplan: ETA", "EET", "EOBT"])
         if flightplanData.status not in ['closed', 'scheduled', 'departed', 'initiated', 'in_block', 'off-block']:
-            Alarm(75, ['Status'])
+            Alarm(75, ['Flightplan: Status'])
         if len(flightplanData.registration) != 4:
-            alarm(75, ['Registration'])
+            alarm(75, ['Flightplan: Registration'])
         if len(flightplanData.destination) != 4:
-            Alarm(75, ['Destination'])
+            Alarm(75, ['Flightplan: Destination'])
         if len(flightplanData.origin) != 4:
-            Alarm(75, ['Origin'])
+            Alarm(75, ['Flightplan: Origin'])
         if len(flightplanData.callsign) < 4 or len(flightplanData.callsign) > 7:
-            Alarm(75, ['Callsign']) 
+            Alarm(75, ['Flightplan: Callsign']) 
 
 
 

@@ -68,4 +68,5 @@ class ItTower():
 
         if severity >= 10:
             affectedSystems = [x for x in avgDict if avgDict[x] >= 10]
+            affectedSystems[0] = "IT: " + affectedSystems[0]
             Alarm(severity, affectedSystems)

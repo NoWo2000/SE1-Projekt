@@ -27,13 +27,13 @@ class RadarTower():
 
     def evaluate(self, radarDataset):
         if len(radarDataset.callsign) < 4 or len(radarDataset.callsign) > 7:
-            Alarm(75, ['Callsign'])
+            Alarm(75, ['Radar: Callsign'])
         if radarDataset.alt < 0:
-            Alarm(75, ['Altitude'])
+            Alarm(75, ['Radar: Altitude'])
         if radarDataset.lat < -180 or radarDataset.lat > 180:
-            Alarm(75, ['Latitude'])
+            Alarm(75, ['Radar: Latitude'])
         if radarDataset.lon < -90 or radarDataset.lon > 90:
-            Alarm(75, ['Longitude'])
+            Alarm(75, ['Radar: Longitude'])
 
 if __name__ == '__main__':
     radarData = [
