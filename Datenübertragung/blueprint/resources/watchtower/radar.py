@@ -29,9 +29,9 @@ class RadarTower():
         if len(radarDataset.callsign) < 4 or len(radarDataset.callsign) > 7:
             Alarm(75, ['Callsign'])
         if radarDataset.alt < 0:
-            Alarm(75, ['Altidude'])
+            Alarm(75, ['Altitude'])
         if radarDataset.lat < -180 or radarDataset.lat > 180:
-            Alarm(75, ['Latidude'])
+            Alarm(75, ['Latitude'])
         if radarDataset.lon < -90 or radarDataset.lon > 90:
             Alarm(75, ['Longitude'])
 
