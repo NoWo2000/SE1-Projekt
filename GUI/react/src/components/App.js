@@ -53,11 +53,14 @@ class App extends React.Component {
     }
 
     generateAlarm() {
-        let a = [...this.state.alarmArray, generateRandomAlarm()]
-        this.setState({ alarmArray: a });
+        this.setState({ alarmArray: [...this.state.alarmArray, generateRandomAlarm()] });
     }
 
     render() {
+
+        let reversedArray = [...this.state.alarmArray];
+        reversedArray.reverse();
+
         return (
             <Container fluid>
                 {/* Header */}
@@ -68,18 +71,18 @@ class App extends React.Component {
                 <Row>
                     {/* Alarm List */}
                     <Col md={6}>
-                        <Accordion defaultActiveKey={this.state.alarmArray[0]}>
-                            {this.state.alarmArray.map(alarm => {
+                        <Accordion defaultActiveKey={reversedArray[0]}>
+                            {reversedArray.map(alarm => {
                                 if (alarm.probability >= 75) {
-                                    return <Alarm data={alarm}></Alarm>
+                                    return <Alarm data={alarm}></Alarm>;
                                 } else {
-                                    return ""
+                                    return null;
                                 }
                             })}
                         </Accordion>
                     </Col>
+                    {/* 24h-Course */}
                     <Col>
-                        {/* 24h-Course */}
                         <Chart data={this.state.alarmArray}></Chart>
                     </Col>
                 </Row>
