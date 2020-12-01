@@ -28,7 +28,7 @@ class Alarm():
                 ]
     
         checklist = []
-        listlength = randint(1, 3)
+        listlength = randint(1, 4)
     
         while True:
             random = randint(0, len(todos) - 1)
@@ -44,7 +44,7 @@ class Alarm():
     def automaticReaction(self):
         reactions = ["Shut Down", "Do Nothing", "Ring Alarm", "Call Police", "Call 112", "Sit back and relax", "Inform your Supervisor"]
         automaticReactions = []
-        listlength = randint(2, 5)
+        listlength = randint(1, 2)
         while True:
             random = randint(0, len(reactions) - 1)
             if reactions[random] not in automaticReactions:
