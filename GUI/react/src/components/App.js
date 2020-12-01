@@ -40,6 +40,7 @@ class App extends React.Component {
                 (result) => {
                     result.map(alarm => {
                         alarm.time = alarm.time * 1000;
+                        return null;
                     })
                     this.setState({
                         alarmArray: this.state.alarmArray.concat(result)
