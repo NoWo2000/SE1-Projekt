@@ -14,13 +14,13 @@ class App extends React.Component {
         super(props);
         this.state = {
             alarmArray: [{
-                id: "ID",
-                time: "date and time",
-                affectedSystems: [],
-                suspectedAttackType: "Suspected Attack Type",
-                probability: 0,
-                automaticReaction: [],
-                checklist: []
+                id: 0,                      //Number
+                time: 0,                    //Number (timestamp)
+                affectedSystems: [],        //Array von Srings
+                suspectedAttackType: "",    //String
+                probability: 0,             //Number
+                automaticReaction: [],      //Array von Strings
+                checklist: []               //Array von Strings
             }],
             alarmArrayReversed: []
         };

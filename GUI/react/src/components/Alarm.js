@@ -10,8 +10,8 @@ class Alarm extends React.Component {
 
     calculateCatergory(probability) {
         if (probability >= 95) { return ["critical", '#E94D4D'] }
-        else if (probability >= 85) { return ["major", '#FF994F'] }
-        else { return ["minor", '#EDC535'] };
+        else if (probability >= 85) { return ["very high", '#FF994F'] }
+        else { return ["high", '#EDC535'] };
     }
 
     calculateDate(timestamp) {
