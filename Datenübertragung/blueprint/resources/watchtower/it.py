@@ -32,7 +32,7 @@ class ItTower():
         returns dictionary
         """
 
-        #checklist = self.db.get(IT, limit=10)
+        checkList = self.db.get_last_it(10)
         average = {
             "cpuUsage": 0,
             "ramUsage": 0,
@@ -43,8 +43,12 @@ class ItTower():
         }
         
         for dataset in checkList:
-            for var in dir(dataset):
-                average[var] += eval("dataset."+var)
+            average["cpuUsage"] += dataset.server_cpu_usage
+            average["ramUsage"] += dataset.server_ram_usage
+            average["serverLoginFailed"] += dataset.server_login_failed
+            average["serverLoginSuccess"] += dataset.server_login_success
+            average["trafficUpload"] += dataset.traffic_upload
+            average["trafficDownload"] += dataset.traffic_download
         for key in average:
             average[key] /= len(checkList)
 
@@ -52,12 +56,12 @@ class ItTower():
 
     def calculate(self, avgDict):
         avgDict = {
-           "cpuUsage": _calc_cpu(avgDict["cpuUsage"]),
-           "ramUsage": _calc_ram(avgDict["ramUsage"]),
-           "serverLoginFailed": _calc_login_failed(avgDict["serverLoginFailed"]),
-           "serverLoginSuccess": _calc_login_success(avgDict["serverLoginSuccess"]),
-           "trafficUpload": _calc_traffic_up(avgDict["trafficUpload"]),
-           "trafficDownload": _calc_traffic_down(avgDict["trafficDownload"])
+           "cpuUsage": calc_cpu(avgDict["cpuUsage"]),
+           "ramUsage": calc_ram(avgDict["ramUsage"]),
+           "serverLoginFailed": calc_login_failed(avgDict["serverLoginFailed"]),
+           "serverLoginSuccess": calc_login_success(avgDict["serverLoginSuccess"]),
+           "trafficUpload": calc_traffic_up(avgDict["trafficUpload"]),
+           "trafficDownload": calc_traffic_down(avgDict["trafficDownload"])
         }
         severity = 0
         for key in avgDict:
@@ -70,3 +74,7 @@ class ItTower():
             affectedSystems = [x for x in avgDict if avgDict[x] >= 10]
             affectedSystems[0] = "IT: " + affectedSystems[0]
             Alarm(severity, affectedSystems)
+
+if __name__ == "__main__":
+    tower = ItTower()
+    tower.run()

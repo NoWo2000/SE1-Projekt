@@ -27,7 +27,7 @@ class DatabaseManager():
             ).all()
 
     def get_last_it(self, entry_limit):
-        return db.session.query(ItSchema).order_by(ItSchema.time.desc()).limit(entry_limit)
+        return db.session.query(ItSchema).order_by(ItSchema.time.desc()).limit(entry_limit).all()
 
 dbm = DatabaseManager()
 
