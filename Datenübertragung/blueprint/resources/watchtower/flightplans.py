@@ -40,7 +40,7 @@ class FlightplansTower():
         time = flightplanData.eta - flightplanData.eet
         if flightplanData.eobt != time:
             Alarm(75, ["Flightplan: ETA", "EET", "EOBT"])
-        if flightplanData.status not in ['closed', 'scheduled', 'departed', 'initiated', 'in_block', 'off-block']:
+        if flightplanData.status not in ['closed', 'scheduled', 'departed', 'initiated', 'in_block', 'off-block', 'final']:
             Alarm(75, ['Flightplan: Status'])
         if len(flightplanData.registration) != 4:
             alarm(75, ['Flightplan: Registration'])
