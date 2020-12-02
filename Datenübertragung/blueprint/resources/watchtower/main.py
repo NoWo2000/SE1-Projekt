@@ -17,7 +17,7 @@ class WatchTower():
     def watch(self):
         loggerFile.log("Run WatchTower.watch ...")
         self.flightplansFetch.run()
-        #self.itFetch.run()
+        self.itFetch.run()
         self.radarFetch.run()
         self.terminalFetch.run()
 
