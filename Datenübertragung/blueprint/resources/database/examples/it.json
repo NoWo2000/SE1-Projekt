@@ -1,0 +1,37 @@
+[
+    {
+        "name": "server-cpu-usage",
+        "unit": "%",
+        "value": 51
+    },
+    {
+        "name": "server-ram-usage",
+        "unit": "%",
+        "value": 19
+    },
+    {
+        "name": "server-login-failed",
+        "unit": "count",
+        "value": 107
+    },
+    {
+        "name": "server-login-success",
+        "unit": "count",
+        "value": 1038
+    },
+    {
+        "name": "traffic-upload",
+        "unit": "Mb/s",
+        "value": 42
+    },
+    {
+        "name": "traffic-download",
+        "unit": "Mb/s",
+        "value": 72
+    },
+    {
+        "name": "news",
+        "unit": "-",
+        "value": "pre check of ubuntu 20.05 LTS initiated<br>"
+    }
+]

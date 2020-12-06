@@ -1,0 +1,46 @@
+version: "3.2"
+services:
+  python:
+    # Uncomment the next line to use a non-root user for all processes.
+    # See https://aka.ms/vscode-remote/containers/non-root for details.
+    # user: node
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Update VARIANT to pick a python versions: 3.7, 3.8, 3.9
+        VARIANT: "3.9"
+        INSTALL_NODE: "false"
+        NODE_VERSION: "lts/*"
+
+    volumes:
+      - ..:/workspace:cached
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+    
+    links:
+      - postgres
+
+  postgres:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: s3cr3t
+      POSTGRES_DB: SE-Projekt
+    ports:
+      - 5432:5432
+    volumes:
+      - datenueberwachung_data:/var/lib/postgresql/data
+  
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 4040:8080
+    links:
+      - postgres
+      
+volumes:
+  datenueberwachung_data:

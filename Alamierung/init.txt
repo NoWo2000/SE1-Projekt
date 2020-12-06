@@ -1,4 +1,0 @@
-Nur ein leeres File, um dieses Verzeichnis anzulegen. 
-Bitte nur Gruppenspezifische Dinge in den jeweiligen Gruppen in ihren Ordner legen.
-
-Ihr könnt und solltet die Datei bitte löschen.
