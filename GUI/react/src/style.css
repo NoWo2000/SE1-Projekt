@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+html{
+    font-family : 'open sans';
+}
+
+body {
+    background-color: #f0f0f0
+}
+
+.tag {
+    font-size: 1.25rem;
+    display: table;
+    border-radius: 10px;
+    text-transform: uppercase;
+    color: white;
+    font-weight: bolder;
+}
+
+.form-check-input {
+    margin-top: 8.5px;
+}
+
+.canvasjs-chart-credit {
+    display:none;
+}
+
+.canvasjs-chart-toolbar {
+    display:none;
+}
+
+.canvasjs-chart-canvas {
+    border-color: grey;
+    border: 10px;
+    border-radius: 5px;
+}
+
+.border {
+    border-color: grey;
+    border: 10px;
+    border-radius: 5px;
+}
